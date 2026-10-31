@@ -12,22 +12,6 @@
 - Управление громкостью, яркостью и медиаплеером
 - Жесты тачпада и переключение рабочих пространств
 
-## Зависимости
-
-- Hyprland с поддержкой Lua-конфигурации
-- Kitty
-- Thunar
-- Wofi
-- Waybar
-- Dunst
-- NetworkManager Applet
-- Grim и Slurp
-- Swaylock
-- Playerctl
-- WirePlumber (`wpctl`)
-- Brightnessctl или Light
-- Neovim
-
 ## Установка
 
 1. Склонируйте репозиторий:
@@ -37,9 +21,18 @@
    cd Config-Hyprland-on-Lua
    ```
 
-2. Скопируйте конфигурацию в каталог конфигурации Hyprland/Lua.
+2. Установите зависимости:
 
-3. Проверьте и измените в `Hyperland.lua`:
+   ```bash
+   chmod +x install-dependencies.sh
+   ./install-dependencies.sh
+   ```
+
+   Скрипт поддерживает Debian/Ubuntu и Arch Linux.
+
+3. Скопируйте конфигурацию в каталог конфигурации Hyprland/Lua.
+
+4. Проверьте и измените в `Hyperland.lua`:
 
    - имя монитора;
    - используемый терминал;
@@ -48,7 +41,7 @@
    - путь к скрипту обоев;
    - путь к изображению для Swaylock.
 
-4. Перезапустите Hyprland.
+5. Перезапустите Hyprland.
 
 ## Основные горячие клавиши
 
