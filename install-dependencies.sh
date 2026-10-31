@@ -15,11 +15,11 @@ if command -v apt-get >/dev/null 2>&1; then
     "${SUDO[@]}" apt-get update
     "${SUDO[@]}" apt-get install -y \
         hyprland kitty thunar wofi waybar dunst network-manager-gnome \
-        grim slurp swaylock playerctl wireplumber brightnessctl neovim
+        grim slurp swaylock playerctl wireplumber brightnessctl neovim zsh
 elif command -v pacman >/dev/null 2>&1; then
     "${SUDO[@]}" pacman -Sy --needed --noconfirm \
         hyprland kitty thunar wofi waybar dunst networkmanager-applet \
-        grim slurp swaylock playerctl wireplumber brightnessctl neovim
+        grim slurp swaylock playerctl wireplumber brightnessctl neovim zsh
 else
     echo "Ошибка: поддерживаются только Debian/Ubuntu (apt) и Arch Linux (pacman)." >&2
     exit 1

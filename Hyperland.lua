@@ -182,17 +182,6 @@ hl.config({
             natural_scroll = false,
         },
     },
-})hl.config({
-    input = {
-        -- Раскладки US/RU с переключением по Alt+Shift.
-        kb_layout   = "us,ru",
-        kb_options  = "grp:alt_shift_toggle",
-        
-        follow_mouse = 1,
-        touchpad = {
-            natural_scroll = false,
-        },
-    },
 })
 
 hl.gesture({
@@ -298,8 +287,8 @@ hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"))
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"))
 
 -- Управление яркостью.
-hl.bind("XF86MonBrightnessUp",   hl.dsp.exec_cmd("light -A 1"))
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("light -U 1"))
+hl.bind("XF86MonBrightnessUp",   hl.dsp.exec_cmd("brightnessctl s +1%"))
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl s 1%-"))
 hl.bind("SUPER+SHIFT+B", hl.dsp.exec_cmd("brightnessctl s +5%"))
 hl.bind("SUPER+SHIFT+T", hl.dsp.exec_cmd("brightnessctl s 5%-"))
 
