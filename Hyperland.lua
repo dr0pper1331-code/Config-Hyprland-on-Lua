@@ -3,8 +3,11 @@
 ----------------
 
 -- Настройка монитора: https://wiki.hypr.land/configuring/core/monitors/
+-- Можно задать имя конкретного монитора через HYPRLAND_MONITOR.
+local monitor = os.getenv("HYPRLAND_MONITOR") or ""
+
 hl.monitor({
-    output   = "",
+    output   = monitor,
     mode     = "preferred",
     position = "auto",
     scale    = "auto",
@@ -19,21 +22,22 @@ hl.monitor({
 local terminal    = "kitty"
 local fileManager = "Thunar"
 local menu        = "wofi"
+local home        = assert(os.getenv("HOME"), "Переменная HOME не задана")
 
 -----------------------------------
 -- АВТОЗАПУСК СИСТЕМНЫХ СЕРВИСОВ --
 -----------------------------------
 -- Команды выполняются при каждом чтении конфигурации.
 
-hl.exec_cmd("mkdir -p " .. os.getenv("HOME") .. "/Pictures/Screenshots")
-hl.exec_cmd("dunst")
-hl.exec_cmd("nm-applet --indicator")
+hl.exec_cmd("mkdir -p " .. home .. "/Pictures/Screenshots")
+hl.exec_cmd("pgrep -x dunst >/dev/null 2>&1 || dunst")
+hl.exec_cmd("pgrep -x nm-applet >/dev/null 2>&1 || nm-applet --indicator")
 
--- Перезапустить панель Waybar.
-hl.exec_cmd("killall waybar; waybar")
+-- Не запускать второй экземпляр при перечитывании конфигурации.
+hl.exec_cmd("pgrep -x waybar >/dev/null 2>&1 || waybar")
 
 -- Применить обои.
-hl.exec_cmd("sh " .. os.getenv("HOME") .. "/.config/sway/set_wallpaper.sh")
+hl.exec_cmd("sh " .. home .. "/.config/sway/set_wallpaper.sh")
 
 
 --------------------------------
@@ -150,8 +154,9 @@ hl.config({
 
 hl.config({
     misc = {
-        force_default_wallpaper = -1,    -- Значение -1 оставляет стандартный выбор обоев.
-        disable_hyprland_logo   = false, -- Не отключать логотип Hyprland и фон по умолчанию.
+        force_default_wallpaper = -1,   -- Не показывать встроенные обои Hyprland.
+        disable_hyprland_logo   = true, -- Не показывать логотип на фоне запуска.
+        disable_splash_rendering = true,
     },
 })
 
@@ -213,12 +218,12 @@ hl.bind("SUPER+B", hl.dsp.exec_cmd("xdg-open 'https://'"))
 hl.bind("SUPER+N", hl.dsp.exec_cmd("kitty -e nvim"))
 
 -- Блокировка экрана и смена обоев.
-hl.bind("SUPER+U", hl.dsp.exec_cmd("swaylock -i ~/Pictures/wallpapers/bg.png"))
-hl.bind("SUPER+SHIFT+W", hl.dsp.exec_cmd("~/.config/sway/set_wallpaper.sh"))
+hl.bind("SUPER+U", hl.dsp.exec_cmd("swaylock -f -i " .. home .. "/Pictures/wallpapers/bg.png"))
+hl.bind("SUPER+SHIFT+W", hl.dsp.exec_cmd("sh " .. home .. "/.config/sway/set_wallpaper.sh"))
 
 -- Снимки экрана: полный экран и выбранная область.
-hl.bind("SUPER+SHIFT+P", hl.dsp.exec_cmd('grim -g "$(slurp)" ~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%m-%s).png'))
-hl.bind("SUPER+P", hl.dsp.exec_cmd('grim ~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%m-%s).png'))
+hl.bind("SUPER+SHIFT+P", hl.dsp.exec_cmd('grim -g "$(slurp)" ' .. home .. '/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%m-%s).png'))
+hl.bind("SUPER+P", hl.dsp.exec_cmd('grim ' .. home .. '/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%m-%s).png'))
 
 -- Закрыть активное окно.
 hl.bind("SUPER+Q", hl.dsp.window.close())
