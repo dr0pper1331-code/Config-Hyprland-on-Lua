@@ -17,11 +17,11 @@ if command -v apt-get >/dev/null 2>&1; then
     "${SUDO[@]}" apt-get update
     "${SUDO[@]}" apt-get install -y \
         hyprland kitty thunar wofi waybar dunst network-manager-gnome \
-        grim slurp hyprpaper swaylock playerctl wireplumber brightnessctl neovim zsh
+        grim slurp hyprpaper swaylock playerctl pavucontrol wireplumber brightnessctl neovim zsh
 elif command -v pacman >/dev/null 2>&1; then
     "${SUDO[@]}" pacman -Sy --needed --noconfirm \
         hyprland kitty thunar wofi waybar dunst networkmanager-applet \
-        grim slurp hyprpaper swaylock playerctl wireplumber brightnessctl neovim zsh
+        grim slurp hyprpaper swaylock playerctl pavucontrol wireplumber brightnessctl neovim zsh
 else
     echo "Ошибка: поддерживаются только Debian/Ubuntu (apt) и Arch Linux (pacman)." >&2
     exit 1
@@ -36,4 +36,5 @@ install -Dm644 "${script_dir}/config/waybar/config" "${HOME}/.config/waybar/conf
 install -Dm644 "${script_dir}/config/waybar/style.css" "${HOME}/.config/waybar/style.css"
 install -Dm644 "${script_dir}/config/wofi/style.css" "${HOME}/.config/wofi/style.css"
 install -Dm644 "${script_dir}/config/kitty/kitty.conf" "${HOME}/.config/kitty/kitty.conf"
+install -Dm644 "${script_dir}/config/kitty/current-theme.conf" "${HOME}/.config/kitty/current-theme.conf"
 echo "Зависимости успешно установлены."
