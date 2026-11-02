@@ -74,24 +74,47 @@ hl.config({
         border_size = 2,  -- Толщина границы.
 
         col = {
-            active_border   = theme.active_border,
+            active_border   = {
+                colors = { theme.active_border, theme.accent },
+                angle = 45,
+            },
             inactive_border = theme.inactive_border,
         },
+        resize_on_border = false,
+        allow_tearing = false,
         layout = "dwindle",
     },
 
     decoration = {
-        rounding = 4, -- Скругление углов окон в стиле Nord.
+        rounding = 10,
+        rounding_power = 2,
 
         active_opacity   = 1.0,
         inactive_opacity = 1.0,
 
         shadow = {
-            enabled = true, -- Тени включены.
+            enabled = true,
+            range = 4,
+            render_power = 3,
         },
         blur = {
             enabled = true,
-        }
+            size = 3,
+            passes = 1,
+            vibrancy = 0.17,
+            special = true,
+        },
+        dim_special = 0.4,
+        glow = {
+            enabled = true,
+            range = 10,
+            render_power = 3,
+            color = {
+                colors = { theme.active_border, theme.accent },
+                angle = 45,
+            },
+            color_inactive = "rgba(00000000)",
+        },
     }
 })
 -- Кривые и анимации: https://wiki.hypr.land/configuring/core/animations/
@@ -154,6 +177,7 @@ hl.config({
         disable_splash_rendering = true,
     },
 })
+hl.workspace_rule({ workspace = "s[true]", gaps_out = 30 })
 
 
 ----------------
@@ -178,6 +202,7 @@ hl.config({
         kb_options  = "grp:alt_shift_toggle",
         
         follow_mouse = 1,
+        numlock_by_default = profile.numlock,
         touchpad = {
             natural_scroll = profile.natural_scroll,
         },
@@ -211,6 +236,10 @@ hl.bind("SUPER+R", hl.dsp.exec_cmd(menu))
 hl.bind("SUPER+SHIFT+E", hl.dsp.exec_cmd(fileManager))
 hl.bind("SUPER+B", hl.dsp.exec_cmd("xdg-open 'https://'"))
 hl.bind("SUPER+N", hl.dsp.exec_cmd("kitty -e nvim"))
+hl.bind("SUPER+F1", hl.dsp.exec_cmd(profile.quick_apps[1]))
+hl.bind("SUPER+F2", hl.dsp.exec_cmd(profile.quick_apps[2]))
+hl.bind("SUPER+F3", hl.dsp.exec_cmd(profile.quick_apps[3]))
+hl.bind("SUPER+F4", hl.dsp.exec_cmd(profile.quick_apps[4]))
 
 -- Блокировка экрана и смена обоев.
 hl.bind("SUPER+U", hl.dsp.exec_cmd("swaylock -f -i " .. home .. "/Pictures/wallpapers/bg.png"))
@@ -247,6 +276,14 @@ hl.bind("SUPER+SHIFT+down",  hl.dsp.window.move({ direction = "down" }))
 hl.bind("SUPER+SHIFT+up",    hl.dsp.window.move({ direction = "up" }))
 hl.bind("SUPER+SHIFT+right", hl.dsp.window.move({ direction = "right" }))
 
+-- Навигация между существующими рабочими пространствами.
+hl.bind("SUPER+mouse_down", hl.dsp.focus({ workspace = "e+1" }))
+hl.bind("SUPER+mouse_up", hl.dsp.focus({ workspace = "e-1" }))
+hl.bind("SUPER+CTRL+left", hl.dsp.focus({ workspace = "e-1" }))
+hl.bind("SUPER+CTRL+right", hl.dsp.focus({ workspace = "e+1" }))
+hl.bind("SUPER+CTRL+SHIFT+left", hl.dsp.window.move({ workspace = "e-1" }))
+hl.bind("SUPER+CTRL+SHIFT+right", hl.dsp.window.move({ workspace = "e+1" }))
+
 
 
 
@@ -274,6 +311,9 @@ hl.bind("SUPER+H", hl.dsp.layout("preselect l"))
 hl.bind("SUPER+V", hl.dsp.layout("preselect d")) 
 hl.bind("SUPER+F", hl.dsp.window.fullscreen({ action = "toggle" }))
 hl.bind("SUPER+SHIFT+space", hl.dsp.window.float({ action = "toggle" }))
+hl.bind("SUPER+O", hl.dsp.window.pseudo())
+hl.bind("SUPER+S", hl.dsp.workspace.toggle_special("magic"))
+hl.bind("SUPER+SHIFT+S", hl.dsp.window.move({ workspace = "special:magic" }))
 
 
 -- Управление громкостью.
