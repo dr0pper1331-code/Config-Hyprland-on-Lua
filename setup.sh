@@ -4,7 +4,7 @@ set -euo pipefail
 
 script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 config_home="${HOME}/.config"
-hypr_dir="${config_home}/hypr"
+hypr_dir="${HYPRLAND_CONFIG_DIR:-${config_home}/hypr}"
 profile="${HYPRLAND_PROFILE:-default}"
 
 usage() {
@@ -150,6 +150,8 @@ check_installed_configs() {
     require_file "${hypr_dir}/Hyperland.lua"
     require_file "${hypr_dir}/set_wallpaper.sh"
     require_file "${hypr_dir}/modules/profile.lua"
+    require_file "${hypr_dir}/modules/theme.lua"
+    require_file "${hypr_dir}/modules/autostart.lua"
     require_file "${config_home}/waybar/config"
     require_file "${config_home}/waybar/style.css"
     require_file "${config_home}/wofi/style.css"

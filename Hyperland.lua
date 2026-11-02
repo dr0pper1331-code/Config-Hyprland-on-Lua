@@ -32,7 +32,7 @@ local menu        = profile.menu
 -----------------------------------
 -- Команды выполняются при каждом чтении конфигурации.
 
-start_services(home)
+start_services(home, config_dir)
 
 
 --------------------------------
@@ -243,7 +243,7 @@ hl.bind("SUPER+F4", hl.dsp.exec_cmd(profile.quick_apps[4]))
 
 -- Блокировка экрана и смена обоев.
 hl.bind("SUPER+U", hl.dsp.exec_cmd("swaylock -f -i " .. home .. "/Pictures/wallpapers/bg.png"))
-hl.bind("SUPER+SHIFT+W", hl.dsp.exec_cmd("bash " .. home .. "/.config/hypr/set_wallpaper.sh"))
+hl.bind("SUPER+SHIFT+W", hl.dsp.exec_cmd("bash " .. config_dir .. "/set_wallpaper.sh"))
 
 -- Снимки экрана: полный экран и выбранная область.
 hl.bind("SUPER+SHIFT+P", hl.dsp.exec_cmd('grim -g "$(slurp)" ' .. home .. '/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%m-%s).png'))

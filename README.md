@@ -43,9 +43,13 @@ Waybar и Lua-конфигуратора.
 1. Склонируйте репозиторий:
 
    ```bash
-   git clone [https://github.com/dr0pper1331-code/Config-Hyprland-on-Lua/tree/feature/advanced-hyprland-setup]
+   git clone -b feature/advanced-hyprland-setup \
+     https://github.com/dr0pper1331-code/Config-Hyprland-on-Lua.git
    cd Config-Hyprland-on-Lua
    ```
+
+   Для стабильной версии вместо `-b feature/advanced-hyprland-setup` можно
+   клонировать ветку `main`.
 
 2. Установите зависимости:
 
@@ -76,8 +80,18 @@ Waybar и Lua-конфигуратора.
    ./setup.sh --reload
    ```
 
-3. Установщик копирует Lua-модули и конфигурации Waybar, Wofi и Kitty в
-   соответствующие каталоги `~/.config`.
+   Если конфигурация Hyprland хранится не в `~/.config/hypr`, перед запуском
+   задайте тот же каталог для установщика и Hyprland:
+
+   ```bash
+   export HYPRLAND_CONFIG_DIR="$HOME/.config/hypr"
+   ./setup.sh
+   ```
+
+3. Установщик копирует текущие файлы из репозитория, включая изменённый
+   конфиг Waybar, Lua-модули и конфигурации Wofi и Kitty, в соответствующие
+   каталоги `~/.config`. Повторный запуск `./setup.sh` обновляет установленные
+   файлы без необходимости клонировать репозиторий заново.
 
 4. Установите Zsh и Oh My Zsh, затем скопируйте `.zshrc` в домашний каталог:
 
