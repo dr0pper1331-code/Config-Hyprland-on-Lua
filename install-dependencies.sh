@@ -2,6 +2,8 @@
 
 set -euo pipefail
 
+script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+
 if [[ "${EUID}" -eq 0 ]]; then
     SUDO=()
 elif command -v sudo >/dev/null 2>&1; then
@@ -25,5 +27,5 @@ else
     exit 1
 fi
 
-install -Dm755 set_wallpaper.sh "${HOME}/.config/hypr/set_wallpaper.sh"
+install -Dm755 "${script_dir}/set_wallpaper.sh" "${HOME}/.config/hypr/set_wallpaper.sh"
 echo "Зависимости успешно установлены."
