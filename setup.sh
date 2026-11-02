@@ -105,10 +105,18 @@ install_packages() {
             grim slurp hyprpaper swaylock playerctl pavucontrol wireplumber \
             brightnessctl neovim zsh
     elif command -v pacman >/dev/null 2>&1; then
-        "${sudo_cmd[@]}" pacman -Sy --needed --noconfirm \
-            bash hyprland kitty thunar wofi waybar dunst network-manager-applet \
-            grim slurp hyprpaper swaylock playerctl pavucontrol wireplumber \
+        local packages=(
+            bash hyprland kitty thunar wofi waybar dunst
+            grim slurp hyprpaper swaylock playerctl pavucontrol wireplumber
             brightnessctl neovim zsh
+        )
+        if pacman -Si network-manager-applet >/dev/null 2>&1; then
+            packages+=(network-manager-applet)
+        else
+            printf '%s\n' 'Предупреждение: network-manager-applet недоступен, пропускаю.'
+        fi
+        "${sudo_cmd[@]}" pacman -Sy --needed --noconfirm \
+            "${packages[@]}"
     else
         printf '%s\n' 'Ошибка: поддерживаются apt-get и pacman.' >&2
         return 1
