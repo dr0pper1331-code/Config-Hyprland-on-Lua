@@ -37,7 +37,7 @@ hl.exec_cmd("pgrep -x nm-applet >/dev/null 2>&1 || nm-applet --indicator")
 hl.exec_cmd("pgrep -x waybar >/dev/null 2>&1 || waybar")
 
 -- Применить обои.
-hl.exec_cmd("sh " .. home .. "/.config/sway/set_wallpaper.sh")
+hl.exec_cmd("bash " .. home .. "/.config/sway/set_wallpaper.sh")
 
 
 --------------------------------
@@ -219,7 +219,7 @@ hl.bind("SUPER+N", hl.dsp.exec_cmd("kitty -e nvim"))
 
 -- Блокировка экрана и смена обоев.
 hl.bind("SUPER+U", hl.dsp.exec_cmd("swaylock -f -i " .. home .. "/Pictures/wallpapers/bg.png"))
-hl.bind("SUPER+SHIFT+W", hl.dsp.exec_cmd("sh " .. home .. "/.config/sway/set_wallpaper.sh"))
+hl.bind("SUPER+SHIFT+W", hl.dsp.exec_cmd("bash " .. home .. "/.config/sway/set_wallpaper.sh"))
 
 -- Снимки экрана: полный экран и выбранная область.
 hl.bind("SUPER+SHIFT+P", hl.dsp.exec_cmd('grim -g "$(slurp)" ' .. home .. '/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%m-%s).png'))
