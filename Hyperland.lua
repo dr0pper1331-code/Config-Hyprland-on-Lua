@@ -1,16 +1,20 @@
+local home = assert(os.getenv("HOME"), "Переменная HOME не задана")
+local config_dir = os.getenv("HYPRLAND_CONFIG_DIR") or home .. "/.config/hypr"
+local profile = dofile(config_dir .. "/modules/profile.lua")
+local theme = dofile(config_dir .. "/modules/theme.lua")
+local start_services = dofile(config_dir .. "/modules/autostart.lua")
+
 ----------------
 -- МОНИТОРЫ   --
 ----------------
 
 -- Настройка монитора: https://wiki.hypr.land/configuring/core/monitors/
 -- Можно задать имя конкретного монитора через HYPRLAND_MONITOR.
-local monitor = os.getenv("HYPRLAND_MONITOR") or ""
-
 hl.monitor({
-    output   = monitor,
+    output   = profile.monitor,
     mode     = "preferred",
     position = "auto",
-    scale    = "auto",
+    scale    = profile.monitor_scale,
 })
 
 
@@ -19,25 +23,16 @@ hl.monitor({
 -----------------------
 
 -- Программы, запускаемые горячими клавишами.
-local terminal    = "kitty"
-local fileManager = "Thunar"
-local menu        = "wofi"
-local home        = assert(os.getenv("HOME"), "Переменная HOME не задана")
+local terminal    = profile.terminal
+local fileManager = profile.file_manager
+local menu        = profile.menu
 
 -----------------------------------
 -- АВТОЗАПУСК СИСТЕМНЫХ СЕРВИСОВ --
 -----------------------------------
 -- Команды выполняются при каждом чтении конфигурации.
 
-hl.exec_cmd("mkdir -p " .. home .. "/Pictures/Screenshots")
-hl.exec_cmd("pgrep -x dunst >/dev/null 2>&1 || dunst")
-hl.exec_cmd("pgrep -x nm-applet >/dev/null 2>&1 || nm-applet --indicator")
-
--- Не запускать второй экземпляр при перечитывании конфигурации.
-hl.exec_cmd("pgrep -x waybar >/dev/null 2>&1 || waybar")
-
--- Применить обои.
-hl.exec_cmd("bash " .. home .. "/.config/hypr/set_wallpaper.sh")
+start_services(home)
 
 
 --------------------------------
@@ -79,8 +74,8 @@ hl.config({
         border_size = 2,  -- Толщина границы.
 
         col = {
-            active_border   = "rgba(81a1c1ff)",
-            inactive_border = "rgba(2e3440ff)",
+            active_border   = theme.active_border,
+            inactive_border = theme.inactive_border,
         },
         layout = "dwindle",
     },
@@ -184,7 +179,7 @@ hl.config({
         
         follow_mouse = 1,
         touchpad = {
-            natural_scroll = false,
+            natural_scroll = profile.natural_scroll,
         },
     },
 })

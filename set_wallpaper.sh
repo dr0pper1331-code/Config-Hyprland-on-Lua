@@ -4,8 +4,13 @@ set -euo pipefail
 
 wallpaper_dir="${WALLPAPER_DIR:-${HOME}/Pictures/wallpapers}"
 
+if [[ -z "${WAYLAND_DISPLAY:-}" || -z "${HYPRLAND_INSTANCE_SIGNATURE:-}" ]]; then
+    printf 'Ошибка: скрипт нужно запускать внутри активной сессии Hyprland.\n' >&2
+    exit 1
+fi
+
 if ! command -v hyprctl >/dev/null 2>&1 || ! command -v hyprpaper >/dev/null 2>&1; then
-    printf 'Ошибка: нужны hyprctl и hyprpaper.\n' >&2
+    printf 'Ошибка: установите hyprctl и hyprpaper.\n' >&2
     exit 1
 fi
 
@@ -20,15 +25,26 @@ if ((${#wallpapers[@]} == 0)); then
     exit 1
 fi
 
-if ! pgrep -x hyprpaper >/dev/null 2>&1; then
-    hyprpaper >/dev/null 2>&1 &
+if ! hyprctl hyprpaper listloaded >/dev/null 2>&1; then
+    hyprpaper >/tmp/hyprpaper.log 2>&1 &
 fi
 
 wallpaper="${wallpapers[RANDOM % ${#wallpapers[@]}]}"
 
 for _ in {1..20}; do
-    hyprctl hyprpaper listloaded >/dev/null 2>&1 && break
+    if hyprctl hyprpaper listloaded >/dev/null 2>&1; then
+        break
+    fi
     sleep 0.05
 done
 
-hyprctl hyprpaper wallpaper ",${wallpaper},cover"
+if ! hyprctl hyprpaper listloaded >/dev/null 2>&1; then
+    printf 'Ошибка: hyprpaper не отвечает.\n' >&2
+    [[ -s /tmp/hyprpaper.log ]] && cat /tmp/hyprpaper.log >&2
+    exit 1
+fi
+
+if ! hyprctl hyprpaper wallpaper ",${wallpaper},cover"; then
+    printf 'Ошибка: Hyprpaper не применил файл %s.\n' "${wallpaper}" >&2
+    exit 1
+fi

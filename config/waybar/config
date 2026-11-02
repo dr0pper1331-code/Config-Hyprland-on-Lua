@@ -1,0 +1,80 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 25,
+    "spacing": 4,
+
+    // Расположение модулей точно по вашему Polybar
+    "modules-left": ["hyprland/workspaces", "pulseaudio", "hyprland/language"],
+    "modules-center": ["clock#datetime"],
+    "modules-right": ["network", "filesystem", "temperature", "memory", "cpu", "custom/powermenu"],
+
+    // --- МОДУЛИ СЛЕВА ---
+    "hyprland/workspaces": {
+        "disable-scroll": false,
+        "all-outputs": true,
+        "format": "{name}: {icon}",
+        "format-icons": {
+            "focused": "",
+            "default": "",
+            "urgent": ""
+        }
+    },
+
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": "muted",
+        "format-icons": {
+            "default": ["|", "||", "|||", "||||", "|||||"]
+        },
+        "on-click-right": "pavucontrol"
+    },
+
+    "hyprland/language": {
+        "format": "{} ",
+        "format-en": "us",
+        "format-ru": "ru"
+    },
+
+    // --- МОДУЛИ В ЦЕНТРЕ ---
+    "clock#datetime": {
+        "interval": 1,
+        "format": " {:%A, %B %d %Y     %H:%M}",
+        "tooltip": false
+    },
+
+    // --- МОДУЛИ СПРАВА ---
+    "network": {
+        "interval": 5,
+        "format-connected": "   {ipaddr}",
+        "format-disconnected": "   disconnected"
+    },
+
+    "filesystem": {
+        "interval": 25,
+        "path": "/",
+        "format": "/ {percentage}%"
+    },
+
+    "temperature": {
+        "critical-threshold": 80,
+        "format": " {temperatureC}°C",
+        "format-critical": " {temperatureC}°C"
+    },
+
+    "memory": {
+        "interval": 2,
+        "format": "ram {percentage}%"
+    },
+
+    "cpu": {
+        "interval": 2,
+        "format": "cpu {percentage}%"
+    },
+
+    "custom/powermenu": {
+        "format": "⏻",
+        "on-click": "hyprctl dispatch exit",
+        "tooltip": false
+    }
+}

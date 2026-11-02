@@ -1,0 +1,89 @@
+/* Исправленный блок шрифтов */
+* {
+    font-family: "Inconsolata Nerd Font Mono", "Font Awesome 7 Free", sans-serif;
+    font-size: 11px;
+}
+
+/* Базовые настройки панели */
+window#waybar {
+    background-color: #2e3440; /* colors.background */
+    color: #eceff4;            /* colors.foreground */
+    border-bottom: 3px solid #3b4252; /* line-size и colors.disabled */
+}
+
+
+/* Настройки модулей (отступы и разделитель "|") */
+#workspaces, #pulseaudio, #language, #clock, #network, #filesystem, #temperature, #memory, #cpu, #custom-powermenu {
+    padding: 0 6px;
+    border-right: 1px solid #3b4252; /* Замена вашему separator = | */
+}
+
+/* Удаляем разделитель у самого последнего элемента */
+#custom-powermenu {
+    border-right: none;
+}
+
+/* СТИЛИ МОДУЛЕЙ СЛЕВА */
+#workspaces button {
+    padding: 0 5px;
+    color: #eceff4;
+    background-color: transparent;
+    border-bottom: 3px solid transparent;
+}
+
+#workspaces button.focused {
+    background-color: #88c0d0; /* colors.background-alt */
+    color: #2e3440;
+    border-bottom: 3px solid #88c0d0;
+}
+
+#workspaces button.urgent {
+    background-color: #b48ead; /* colors.alert */
+    color: #ffffff;
+}
+
+#pulseaudio {
+    color: #88c0d0; /* primary */
+}
+
+#language {
+    color: #88c0d0; /* primary */
+}
+
+/* СТИЛИ ЦЕНТРАЛЬНОГО МОДУЛЯ (ДАТА) */
+#clock {
+    background-color: #88c0d0; /* colors.primary */
+    color: #2e3440;            /* colors.background */
+    font-weight: bold;
+}
+
+/* СТИЛИ МОДУЛЕЙ СПРАВА */
+#network {
+    color: #88c0d0; /* colors.primary */
+}
+#network.disconnected {
+    color: #81a1c1; /* colors.secondary */
+}
+
+#filesystem {
+    color: #88c0d0;
+}
+
+#temperature {
+    color: #88c0d0;
+}
+#temperature.critical {
+    color: #bf616a; /* Предупреждение об опасной температуре */
+}
+
+#memory {
+    color: #88c0d0;
+}
+
+#cpu {
+    color: #88c0d0;
+}
+
+#custom-powermenu {
+    color: #eceff4;
+}
