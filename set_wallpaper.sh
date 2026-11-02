@@ -31,6 +31,4 @@ for _ in {1..20}; do
     sleep 0.05
 done
 
-hyprctl hyprpaper unload all
-hyprctl hyprpaper preload "${wallpaper}"
-hyprctl hyprpaper wallpaper ",${wallpaper}"
+hyprctl hyprpaper wallpaper ",${wallpaper},cover"
