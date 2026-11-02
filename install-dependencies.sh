@@ -28,4 +28,12 @@ else
 fi
 
 install -Dm755 "${script_dir}/set_wallpaper.sh" "${HOME}/.config/hypr/set_wallpaper.sh"
+install -Dm644 "${script_dir}/Hyperland.lua" "${HOME}/.config/hypr/Hyperland.lua"
+install -Dm644 "${script_dir}/modules/profile.lua" "${HOME}/.config/hypr/modules/profile.lua"
+install -Dm644 "${script_dir}/modules/theme.lua" "${HOME}/.config/hypr/modules/theme.lua"
+install -Dm644 "${script_dir}/modules/autostart.lua" "${HOME}/.config/hypr/modules/autostart.lua"
+install -Dm644 "${script_dir}/config/waybar/config" "${HOME}/.config/waybar/config"
+install -Dm644 "${script_dir}/config/waybar/style.css" "${HOME}/.config/waybar/style.css"
+install -Dm644 "${script_dir}/config/wofi/style.css" "${HOME}/.config/wofi/style.css"
+install -Dm644 "${script_dir}/config/kitty/kitty.conf" "${HOME}/.config/kitty/kitty.conf"
 echo "Зависимости успешно установлены."

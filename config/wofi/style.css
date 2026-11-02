@@ -1,0 +1,14 @@
+window {
+  background-color: #2e3440;
+  border: 2px solid #81a1c1;
+}
+
+#input,
+#entry {
+  color: #d8dee9;
+  background-color: #3b4252;
+}
+
+#entry:selected {
+  background-color: #434c5e;
+}
