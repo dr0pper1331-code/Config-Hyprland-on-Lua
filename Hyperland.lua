@@ -50,7 +50,7 @@ hl.env("HYPRCURSOR_SIZE", "24")
 ------------------------
 
 -- Документация: https://wiki.hypr.land/configuring/core/advanced-configuration/permissions/
--- Изменения требуют перезапуска Hyprland и не применяются во время работы.
+-- Изменения требуют перезапуска hyprland и не применяются во время работы.
 
 -- hl.config({
 --   ecosystem = {
@@ -172,7 +172,7 @@ hl.config({
 
 hl.config({
     misc = {
-        force_default_wallpaper = -1,   -- Не показывать встроенные обои Hyprland.
+        force_default_wallpaper = -1,   -- Не показывать встроенные обои hyprland.
         disable_hyprland_logo   = true, -- Не показывать логотип на фоне запуска.
         disable_splash_rendering = true,
     },
@@ -312,8 +312,8 @@ hl.bind("SUPER+V", hl.dsp.layout("preselect d"))
 hl.bind("SUPER+F", hl.dsp.window.fullscreen({ action = "toggle" }))
 hl.bind("SUPER+SHIFT+space", hl.dsp.window.float({ action = "toggle" }))
 hl.bind("SUPER+O", hl.dsp.window.pseudo())
-hl.bind("SUPER+S", hl.dsp.workspace.toggle_special("magic"))
-hl.bind("SUPER+SHIFT+S", hl.dsp.window.move({ workspace = "special:magic" }))
+hl.bind("SUPER+S", hl.dsp.exec_cmd("hyprctl dispatch togglespecialworkspace magic"))
+hl.bind("SUPER+SHIFT+S", hl.dsp.exec_cmd("hyprctl dispatch movetoworkspace special:magic"))
 
 
 -- Управление громкостью.

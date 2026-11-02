@@ -5,7 +5,7 @@ set -euo pipefail
 wallpaper_dir="${WALLPAPER_DIR:-${HOME}/Pictures/wallpapers}"
 
 if [[ -z "${WAYLAND_DISPLAY:-}" || -z "${HYPRLAND_INSTANCE_SIGNATURE:-}" ]]; then
-    printf 'Ошибка: скрипт нужно запускать внутри активной сессии Hyprland.\n' >&2
+    printf 'Ошибка: скрипт нужно запускать внутри активной сессии hyprland.\n' >&2
     exit 1
 fi
 

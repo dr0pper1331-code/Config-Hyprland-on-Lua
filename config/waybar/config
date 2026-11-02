@@ -3,7 +3,6 @@
     "position": "top",
     "height": 25,
     "spacing": 4,
-
     "modules-left": ["hyprland/workspaces", "pulseaudio", "hyprland/language"],
     "modules-center": ["clock#datetime"],
     "modules-right": ["network", "filesystem", "temperature", "memory", "cpu", "custom/powermenu"],

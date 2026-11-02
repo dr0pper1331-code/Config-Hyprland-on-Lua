@@ -13,7 +13,7 @@ usage() {
 
   --install  установить зависимости и разложить все конфиги (по умолчанию)
   --check    проверить файлы, команды и установленные конфиги
-  --reload   перечитать конфигурацию Hyprland
+  --reload   перечитать конфигурацию hyprland
 EOF
 }
 
@@ -123,24 +123,37 @@ install_packages() {
     fi
 }
 
+install_config() {
+    local mode="$1"
+    local source="$2"
+    local destination="$3"
+
+    if [[ -e "${destination}" ]]; then
+        printf '  REPLACE %s\n' "${destination}"
+    else
+        printf '  INSTALL %s\n' "${destination}"
+    fi
+    install -D -m "${mode}" "${source}" "${destination}"
+}
+
 install_configs() {
-    install -Dm755 "${script_dir}/set_wallpaper.sh" \
+    install_config 755 "${script_dir}/set_wallpaper.sh" \
         "${hypr_dir}/set_wallpaper.sh"
-    install -Dm644 "${script_dir}/Hyperland.lua" \
+    install_config 644 "${script_dir}/Hyperland.lua" \
         "${hypr_dir}/Hyperland.lua"
     for file in profile.lua theme.lua autostart.lua; do
-        install -Dm644 "${script_dir}/modules/${file}" \
+        install_config 644 "${script_dir}/modules/${file}" \
             "${hypr_dir}/modules/${file}"
     done
-    install -Dm644 "${script_dir}/config/waybar/config" \
+    install_config 644 "${script_dir}/config/waybar/config" \
         "${config_home}/waybar/config"
-    install -Dm644 "${script_dir}/config/waybar/style.css" \
+    install_config 644 "${script_dir}/config/waybar/style.css" \
         "${config_home}/waybar/style.css"
-    install -Dm644 "${script_dir}/config/wofi/style.css" \
+    install_config 644 "${script_dir}/config/wofi/style.css" \
         "${config_home}/wofi/style.css"
-    install -Dm644 "${script_dir}/config/kitty/kitty.conf" \
+    install_config 644 "${script_dir}/config/kitty/kitty.conf" \
         "${config_home}/kitty/kitty.conf"
-    install -Dm644 "${script_dir}/config/kitty/current-theme.conf" \
+    install_config 644 "${script_dir}/config/kitty/current-theme.conf" \
         "${config_home}/kitty/current-theme.conf"
     mkdir -p "${HOME}/Pictures/wallpapers" "${HOME}/Pictures/Screenshots"
 }
@@ -165,9 +178,9 @@ check_all() {
     check_commands
     check_installed_configs
     if [[ -z "${WAYLAND_DISPLAY:-}" || -z "${HYPRLAND_INSTANCE_SIGNATURE:-}" ]]; then
-        printf '%s\n' '  WARN активная сессия Hyprland не обнаружена'
+        printf '%s\n' '  WARN активная сессия hyprland не обнаружена'
     else
-        printf '%s\n' '  OK  активная сессия Hyprland'
+        printf '%s\n' '  OK  активная сессия hyprland'
     fi
     ((failures == 0)) || {
         printf 'Проверка завершена: ошибок %d.\n' "${failures}" >&2
