@@ -43,7 +43,7 @@ Waybar и Lua-конфигуратора.
 1. Склонируйте репозиторий:
 
    ```bash
-   git clone https://github.com/dr0pper1331-code/Config-Hyprland-on-Lua.git
+   git clone [https://github.com/dr0pper1331-code/Config-Hyprland-on-Lua/tree/feature/advanced-hyprland-setup]
    cd Config-Hyprland-on-Lua
    ```
 
