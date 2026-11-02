@@ -106,7 +106,7 @@ install_packages() {
             brightnessctl neovim zsh
     elif command -v pacman >/dev/null 2>&1; then
         "${sudo_cmd[@]}" pacman -Sy --needed --noconfirm \
-            bash hyprland kitty thunar wofi waybar dunst networkmanager-applet \
+            bash hyprland kitty thunar wofi waybar dunst network-manager-applet \
             grim slurp hyprpaper swaylock playerctl pavucontrol wireplumber \
             brightnessctl neovim zsh
     else
